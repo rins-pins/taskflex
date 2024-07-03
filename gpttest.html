@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlex</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F4ECD6;
+            color: #48483A;
+        }
+        .navbar {
+            background-color: #511730;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #F4ECD6;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #9E90A2;
+            color: #48483A;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #CDDFA0;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #511730;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #9E90A2;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #511730;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+        }
+        li.checked {
+            text-decoration: line-through;
+            color: #CDDFA0;
+        }
+        .add-item {
+            display: flex;
+            justify-content: space-between;
+        }
+        .add-item input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #511730;
+            border-radius: 5px;
+        }
+        .add-item button {
+            padding: 10px;
+            background: #511730;
+            color: #F4ECD6;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+        .add-item button:hover {
+            background: #9E90A2;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" onclick="showPage('checklistPage')">Assignments Checklist</a>
+        <a href="#" onclick="showPage('otherPage')">Schedule Generator</a>
+    </div>
+
+    <div class="container page active" id="checklistPage">
+        <h1>Assignment Checklist</h1>
+        <ul id="checklist">
+            <!-- List items will appear here -->
+        </ul>
+        <div class="add-item">
+            <input type="text" id="newItem" placeholder="Add new item...">
+            <button onclick="addItem()">Add</button>
+        </div>
+    </div>
+
+    <div class="container page" id="otherPage">
+        <iframe src="https://sensorica.onout.org/wp-content/plugins/Sensorica2/tools/chate-mascot/vendor_source/Chat.php?post_id=3082" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        function addItem() {
+            const newItem = document.getElementById('newItem').value;
+            if (newItem) {
+                const ul = document.getElementById('checklist');
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${newItem}</span> <button onclick="toggleCheck(this)">✔️</button>`;
+                ul.appendChild(li);
+                document.getElementById('newItem').value = '';
+            }
+        }
+
+        function toggleCheck(button) {
+            const li = button.parentElement;
+            li.classList.toggle('checked');
+        }
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
